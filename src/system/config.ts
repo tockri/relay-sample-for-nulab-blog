@@ -1,3 +1,3 @@
 export const Config = {
-  githubApiToken: process.env.GITHUB_API_TOKEN || '',
+  githubApiToken: process.env.NEXT_PUBLIC_GITHUB_API_TOKEN || '',
 }

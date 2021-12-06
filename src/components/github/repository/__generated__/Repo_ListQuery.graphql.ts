@@ -5,15 +5,10 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type Repo_ListQueryVariables = {
-    first: number;
-    after?: string | null | undefined;
-};
+export type Repo_ListQueryVariables = {};
 export type Repo_ListQueryResponse = {
     readonly viewer: {
-        readonly repositories: {
-            readonly " $fragmentRefs": FragmentRefs<"Repo_ListFragment">;
-        };
+        readonly " $fragmentRefs": FragmentRefs<"Repo_ListFragment">;
     };
 };
 export type Repo_ListQuery = {
@@ -24,56 +19,43 @@ export type Repo_ListQuery = {
 
 
 /*
-query Repo_ListQuery(
-  $first: Int!
-  $after: String
-) {
+query Repo_ListQuery {
   viewer {
-    repositories(first: $first, after: $after) {
-      ...Repo_ListFragment
-    }
+    ...Repo_ListFragment
     id
   }
 }
 
-fragment Repo_ListFragment on RepositoryConnection {
-  pageInfo {
-    endCursor
-    hasNextPage
-    startCursor
-    hasPreviousPage
+fragment Repo_ListFragment on User {
+  repositories(first: 5) {
+    pageInfo {
+      endCursor
+      hasNextPage
+      startCursor
+      hasPreviousPage
+    }
+    edges {
+      node {
+        id
+        name
+        __typename
+      }
+      cursor
+    }
   }
-  nodes {
-    id
-    name
-  }
+  id
 }
 */
 
 const node: ConcreteRequest = (function(){
-var v0 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "after"
-},
-v1 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "first"
-},
-v2 = [
+var v0 = [
   {
-    "kind": "Variable",
-    "name": "after",
-    "variableName": "after"
-  },
-  {
-    "kind": "Variable",
+    "kind": "Literal",
     "name": "first",
-    "variableName": "first"
+    "value": 5
   }
 ],
-v3 = {
+v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -82,10 +64,7 @@ v3 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": [
-      (v0/*: any*/),
-      (v1/*: any*/)
-    ],
+    "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
     "name": "Repo_ListQuery",
@@ -99,20 +78,9 @@ return {
         "plural": false,
         "selections": [
           {
-            "alias": null,
-            "args": (v2/*: any*/),
-            "concreteType": "RepositoryConnection",
-            "kind": "LinkedField",
-            "name": "repositories",
-            "plural": false,
-            "selections": [
-              {
-                "args": null,
-                "kind": "FragmentSpread",
-                "name": "Repo_ListFragment"
-              }
-            ],
-            "storageKey": null
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "Repo_ListFragment"
           }
         ],
         "storageKey": null
@@ -123,10 +91,7 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [
-      (v1/*: any*/),
-      (v0/*: any*/)
-    ],
+    "argumentDefinitions": [],
     "kind": "Operation",
     "name": "Repo_ListQuery",
     "selections": [
@@ -140,7 +105,7 @@ return {
         "selections": [
           {
             "alias": null,
-            "args": (v2/*: any*/),
+            "args": (v0/*: any*/),
             "concreteType": "RepositoryConnection",
             "kind": "LinkedField",
             "name": "repositories",
@@ -188,40 +153,74 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "Repository",
+                "concreteType": "RepositoryEdge",
                 "kind": "LinkedField",
-                "name": "nodes",
+                "name": "edges",
                 "plural": true,
                 "selections": [
-                  (v3/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Repository",
+                    "kind": "LinkedField",
+                    "name": "node",
+                    "plural": false,
+                    "selections": [
+                      (v1/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "name",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "__typename",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  },
                   {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
-                    "name": "name",
+                    "name": "cursor",
                     "storageKey": null
                   }
                 ],
                 "storageKey": null
               }
             ],
-            "storageKey": null
+            "storageKey": "repositories(first:5)"
           },
-          (v3/*: any*/)
+          {
+            "alias": null,
+            "args": (v0/*: any*/),
+            "filters": null,
+            "handle": "connection",
+            "key": "Repo_list_repositories",
+            "kind": "LinkedHandle",
+            "name": "repositories"
+          },
+          (v1/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "76955c556c40eebdf21e8f9b96c20559",
+    "cacheID": "b7743c6d13c49222f4d50814f9b8c385",
     "id": null,
     "metadata": {},
     "name": "Repo_ListQuery",
     "operationKind": "query",
-    "text": "query Repo_ListQuery(\n  $first: Int!\n  $after: String\n) {\n  viewer {\n    repositories(first: $first, after: $after) {\n      ...Repo_ListFragment\n    }\n    id\n  }\n}\n\nfragment Repo_ListFragment on RepositoryConnection {\n  pageInfo {\n    endCursor\n    hasNextPage\n    startCursor\n    hasPreviousPage\n  }\n  nodes {\n    id\n    name\n  }\n}\n"
+    "text": "query Repo_ListQuery {\n  viewer {\n    ...Repo_ListFragment\n    id\n  }\n}\n\nfragment Repo_ListFragment on User {\n  repositories(first: 5) {\n    pageInfo {\n      endCursor\n      hasNextPage\n      startCursor\n      hasPreviousPage\n    }\n    edges {\n      node {\n        id\n        name\n        __typename\n      }\n      cursor\n    }\n  }\n  id\n}\n"
   }
 };
 })();
-(node as any).hash = '1989760621d1c140e3de4f2097a42773';
+(node as any).hash = 'a68f0ad98305356382023c90325e2657';
 export default node;

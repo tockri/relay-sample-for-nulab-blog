@@ -1,12 +1,12 @@
+import Link from 'next/link'
 import React, { useEffect } from 'react'
 import {
   PreloadedQuery,
-  useFragment,
+  usePaginationFragment,
   usePreloadedQuery,
   useQueryLoader,
 } from 'react-relay'
 import { repoListFragment, repoListQuery } from './Repo'
-import { Repo_ListFragment$key } from './__generated__/Repo_ListFragment.graphql'
 import { Repo_ListQuery } from './__generated__/Repo_ListQuery.graphql'
 
 type InnerProps = {
@@ -15,17 +15,19 @@ type InnerProps = {
 
 const ListInner: React.FC<InnerProps> = ({ preloaded }) => {
   const result = usePreloadedQuery<Repo_ListQuery>(repoListQuery, preloaded)
-  const list = useFragment<Repo_ListFragment$key>(
+  const { data, loadNext } = usePaginationFragment<Repo_ListQuery, _>(
     repoListFragment,
-    result.viewer.repositories
+    result.viewer
   )
   return (
     <div>
-      {list.nodes &&
-        list.nodes.map((n, index) =>
+      {data.edges &&
+        data.nodes.map((n, index) =>
           n ? (
             <div key={index}>
-              {n.id} / {n.name}
+              <Link passHref={true} href={`/repo/${n.id}`}>
+                <a>{n.name}</a>
+              </Link>
             </div>
           ) : null
         )}
@@ -36,9 +38,7 @@ const ListInner: React.FC<InnerProps> = ({ preloaded }) => {
 export const RepositoryList: React.FC = () => {
   const [preloaded, load] = useQueryLoader<Repo_ListQuery>(repoListQuery)
   useEffect(() => {
-    load({
-      first: 5,
-    })
+    load({})
   }, [])
 
   return (

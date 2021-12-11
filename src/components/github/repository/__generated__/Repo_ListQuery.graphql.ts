@@ -5,37 +5,37 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type ListQueryVariables = {};
-export type ListQueryResponse = {
+export type Repo_ListQueryVariables = {};
+export type Repo_ListQueryResponse = {
     readonly viewer: {
-        readonly " $fragmentRefs": FragmentRefs<"ListFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"Repo_ListFragment">;
     };
 };
-export type ListQuery = {
-    readonly response: ListQueryResponse;
-    readonly variables: ListQueryVariables;
+export type Repo_ListQuery = {
+    readonly response: Repo_ListQueryResponse;
+    readonly variables: Repo_ListQueryVariables;
 };
 
 
 
 /*
-query ListQuery {
+query Repo_ListQuery {
   viewer {
-    ...ListFragment
+    ...Repo_ListFragment
     id
   }
 }
 
-fragment CardFragment on Repository {
+fragment Repo_CardFragment on Repository {
   id
   name
 }
 
-fragment ListFragment on User {
+fragment Repo_ListFragment on User {
   repositories(first: 5, orderBy: {field: CREATED_AT, direction: DESC}) {
     edges {
       node {
-        ...CardFragment
+        ...Repo_CardFragment
         id
         __typename
       }
@@ -78,7 +78,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "ListQuery",
+    "name": "Repo_ListQuery",
     "selections": [
       {
         "alias": null,
@@ -91,7 +91,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "ListFragment"
+            "name": "Repo_ListFragment"
           }
         ],
         "storageKey": null
@@ -104,7 +104,7 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "ListQuery",
+    "name": "Repo_ListQuery",
     "selections": [
       {
         "alias": null,
@@ -201,7 +201,7 @@ return {
               "orderBy"
             ],
             "handle": "connection",
-            "key": "ListPaginationQuery_repositories",
+            "key": "Repo_ListPaginationQuery_repositories",
             "kind": "LinkedHandle",
             "name": "repositories"
           },
@@ -212,14 +212,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4157c32df0794de1ddce67cf647bf967",
+    "cacheID": "d08d818c521c9480e3226e00aaf6f644",
     "id": null,
     "metadata": {},
-    "name": "ListQuery",
+    "name": "Repo_ListQuery",
     "operationKind": "query",
-    "text": "query ListQuery {\n  viewer {\n    ...ListFragment\n    id\n  }\n}\n\nfragment CardFragment on Repository {\n  id\n  name\n}\n\nfragment ListFragment on User {\n  repositories(first: 5, orderBy: {field: CREATED_AT, direction: DESC}) {\n    edges {\n      node {\n        ...CardFragment\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n"
+    "text": "query Repo_ListQuery {\n  viewer {\n    ...Repo_ListFragment\n    id\n  }\n}\n\nfragment Repo_CardFragment on Repository {\n  id\n  name\n}\n\nfragment Repo_ListFragment on User {\n  repositories(first: 5, orderBy: {field: CREATED_AT, direction: DESC}) {\n    edges {\n      node {\n        ...Repo_CardFragment\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n"
   }
 };
 })();
-(node as any).hash = '695438de34886c059cd7c0c737fcec1e';
+(node as any).hash = 'a68f0ad98305356382023c90325e2657';
 export default node;

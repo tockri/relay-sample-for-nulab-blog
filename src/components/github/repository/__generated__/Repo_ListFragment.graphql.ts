@@ -3,13 +3,13 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
-import ListPaginationQuery from "./ListPaginationQuery.graphql";
+import Repo_ListPaginationQuery from "./Repo_ListPaginationQuery.graphql";
 import { FragmentRefs } from "relay-runtime";
-export type ListFragment = {
+export type Repo_ListFragment = {
     readonly repositories: {
         readonly edges: ReadonlyArray<{
             readonly node: {
-                readonly " $fragmentRefs": FragmentRefs<"CardFragment">;
+                readonly " $fragmentRefs": FragmentRefs<"Repo_CardFragment">;
             } | null;
         } | null> | null;
         readonly pageInfo: {
@@ -17,12 +17,12 @@ export type ListFragment = {
         };
     };
     readonly id: string;
-    readonly " $refType": "ListFragment";
+    readonly " $refType": "Repo_ListFragment";
 };
-export type ListFragment$data = ListFragment;
-export type ListFragment$key = {
-    readonly " $data"?: ListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ListFragment">;
+export type Repo_ListFragment$data = Repo_ListFragment;
+export type Repo_ListFragment$key = {
+    readonly " $data"?: Repo_ListFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"Repo_ListFragment">;
 };
 
 
@@ -66,11 +66,11 @@ return {
       "fragmentPathInResult": [
         "node"
       ],
-      "operation": ListPaginationQuery,
+      "operation": Repo_ListPaginationQuery,
       "identifierField": "id"
     }
   },
-  "name": "ListFragment",
+  "name": "Repo_ListFragment",
   "selections": [
     {
       "alias": "repositories",
@@ -86,7 +86,7 @@ return {
       ],
       "concreteType": "RepositoryConnection",
       "kind": "LinkedField",
-      "name": "__ListPaginationQuery_repositories_connection",
+      "name": "__Repo_ListPaginationQuery_repositories_connection",
       "plural": false,
       "selections": [
         {
@@ -115,7 +115,7 @@ return {
                 {
                   "args": null,
                   "kind": "FragmentSpread",
-                  "name": "CardFragment"
+                  "name": "Repo_CardFragment"
                 }
               ],
               "storageKey": null
@@ -156,7 +156,7 @@ return {
           "storageKey": null
         }
       ],
-      "storageKey": "__ListPaginationQuery_repositories_connection(orderBy:{\"direction\":\"DESC\",\"field\":\"CREATED_AT\"})"
+      "storageKey": "__Repo_ListPaginationQuery_repositories_connection(orderBy:{\"direction\":\"DESC\",\"field\":\"CREATED_AT\"})"
     },
     {
       "alias": null,
@@ -170,5 +170,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '4bc505bf728ee5af5df9d06d636d85dc';
+(node as any).hash = 'e708782fd2edea3393546e99eaf2d93a';
 export default node;

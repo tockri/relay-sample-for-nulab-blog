@@ -5,46 +5,46 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type ListPaginationQueryVariables = {
+export type Repo_ListPaginationQueryVariables = {
     a?: string | null | undefined;
     f?: number | null | undefined;
     id: string;
 };
-export type ListPaginationQueryResponse = {
+export type Repo_ListPaginationQueryResponse = {
     readonly node: {
-        readonly " $fragmentRefs": FragmentRefs<"ListFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"Repo_ListFragment">;
     } | null;
 };
-export type ListPaginationQuery = {
-    readonly response: ListPaginationQueryResponse;
-    readonly variables: ListPaginationQueryVariables;
+export type Repo_ListPaginationQuery = {
+    readonly response: Repo_ListPaginationQueryResponse;
+    readonly variables: Repo_ListPaginationQueryVariables;
 };
 
 
 
 /*
-query ListPaginationQuery(
+query Repo_ListPaginationQuery(
   $a: String
   $f: Int = 5
   $id: ID!
 ) {
   node(id: $id) {
     __typename
-    ...ListFragment_P3xnp
+    ...Repo_ListFragment_P3xnp
     id
   }
 }
 
-fragment CardFragment on Repository {
+fragment Repo_CardFragment on Repository {
   id
   name
 }
 
-fragment ListFragment_P3xnp on User {
+fragment Repo_ListFragment_P3xnp on User {
   repositories(first: $f, after: $a, orderBy: {field: CREATED_AT, direction: DESC}) {
     edges {
       node {
-        ...CardFragment
+        ...Repo_CardFragment
         id
         __typename
       }
@@ -123,7 +123,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "ListPaginationQuery",
+    "name": "Repo_ListPaginationQuery",
     "selections": [
       {
         "alias": null,
@@ -147,7 +147,7 @@ return {
               }
             ],
             "kind": "FragmentSpread",
-            "name": "ListFragment"
+            "name": "Repo_ListFragment"
           }
         ],
         "storageKey": null
@@ -160,7 +160,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "ListPaginationQuery",
+    "name": "Repo_ListPaginationQuery",
     "selections": [
       {
         "alias": null,
@@ -256,7 +256,7 @@ return {
                   "orderBy"
                 ],
                 "handle": "connection",
-                "key": "ListPaginationQuery_repositories",
+                "key": "Repo_ListPaginationQuery_repositories",
                 "kind": "LinkedHandle",
                 "name": "repositories"
               }
@@ -270,14 +270,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "df68c8618ab55585147ba70cc9a60933",
+    "cacheID": "56cf58beaa8a9a4d52ef0537aaf13820",
     "id": null,
     "metadata": {},
-    "name": "ListPaginationQuery",
+    "name": "Repo_ListPaginationQuery",
     "operationKind": "query",
-    "text": "query ListPaginationQuery(\n  $a: String\n  $f: Int = 5\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...ListFragment_P3xnp\n    id\n  }\n}\n\nfragment CardFragment on Repository {\n  id\n  name\n}\n\nfragment ListFragment_P3xnp on User {\n  repositories(first: $f, after: $a, orderBy: {field: CREATED_AT, direction: DESC}) {\n    edges {\n      node {\n        ...CardFragment\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n"
+    "text": "query Repo_ListPaginationQuery(\n  $a: String\n  $f: Int = 5\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...Repo_ListFragment_P3xnp\n    id\n  }\n}\n\nfragment Repo_CardFragment on Repository {\n  id\n  name\n}\n\nfragment Repo_ListFragment_P3xnp on User {\n  repositories(first: $f, after: $a, orderBy: {field: CREATED_AT, direction: DESC}) {\n    edges {\n      node {\n        ...Repo_CardFragment\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n"
   }
 };
 })();
-(node as any).hash = '4bc505bf728ee5af5df9d06d636d85dc';
+(node as any).hash = 'e708782fd2edea3393546e99eaf2d93a';
 export default node;

@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import React from 'react'
-import { RepositoryList } from '../src/components/github/repository/List'
+import { RepositorySelector } from '../src/components/github/repository/Selector'
 
 const Home: NextPage = () => {
   return (
@@ -10,7 +10,7 @@ const Home: NextPage = () => {
         <title>Relay sample</title>
       </Head>
       <h1>Repositories</h1>
-      <RepositoryList />
+      <RepositorySelector />
     </>
   )
 }

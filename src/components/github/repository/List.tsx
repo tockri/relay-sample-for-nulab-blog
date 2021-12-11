@@ -1,60 +1,26 @@
-// noinspection GraphQLUnresolvedReference,GraphQLSchemaValidation
-
 import React, { useEffect } from 'react'
 import {
-  graphql,
   PreloadedQuery,
   usePaginationFragment,
   usePreloadedQuery,
   useQueryLoader,
 } from 'react-relay'
 import { Card } from './Card'
-import { ListFragment$key } from './__generated__/ListFragment.graphql'
-import { ListQuery } from './__generated__/ListQuery.graphql'
+import { repoListFragment, repoListQuery } from './Repo'
+import { Repo_ListFragment$key } from './__generated__/Repo_ListFragment.graphql'
+import { Repo_ListQuery } from './__generated__/Repo_ListQuery.graphql'
 
 type InnerProps = {
-  preloaded: PreloadedQuery<ListQuery>
+  preloaded: PreloadedQuery<Repo_ListQuery>
 }
 
-const listQuery = graphql`
-  query ListQuery {
-    viewer {
-      ...ListFragment
-    }
-  }
-`
-
-const ListInner: React.FC<InnerProps> = ({ preloaded }) => {
-  const result = usePreloadedQuery<ListQuery>(listQuery, preloaded)
-  const { data, loadNext, refetch } = usePaginationFragment<
-    ListQuery,
-    ListFragment$key
-  >(
-    graphql`
-      fragment ListFragment on User
-      @argumentDefinitions(
-        f: { type: "Int", defaultValue: 5 }
-        a: { type: "String" }
-      )
-      @refetchable(queryName: "ListPaginationQuery") {
-        repositories(
-          first: $f
-          after: $a
-          orderBy: { field: CREATED_AT, direction: DESC }
-        ) @connection(key: "ListPaginationQuery_repositories") {
-          edges {
-            node {
-              ...CardFragment
-            }
-          }
-          pageInfo {
-            hasNextPage
-          }
-        }
-      }
-    `,
-    result.viewer
-  )
+const ListInner: React.FC<InnerProps> = (props) => {
+  const { preloaded } = props
+  const result = usePreloadedQuery<Repo_ListQuery>(repoListQuery, preloaded)
+  const { data, loadNext } = usePaginationFragment<
+    Repo_ListQuery,
+    Repo_ListFragment$key
+  >(repoListFragment, result.viewer)
   return (
     <div>
       {(data.repositories?.edges ?? []).map((edge, index) =>
@@ -76,7 +42,7 @@ const ListInner: React.FC<InnerProps> = ({ preloaded }) => {
 }
 
 export const RepositoryList: React.FC = () => {
-  const [preloaded, load] = useQueryLoader<ListQuery>(listQuery)
+  const [preloaded, load] = useQueryLoader<Repo_ListQuery>(repoListQuery)
   useEffect(() => {
     load({})
   }, [])

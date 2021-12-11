@@ -9,7 +9,7 @@ const fetchRelay: FetchFunction = async (params, variables) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `bearer ${Config.githubApiToken}`
+      'Authorization': `bearer ${Config.githubApiToken()}`
     },
     body: JSON.stringify({
       query: params.text,

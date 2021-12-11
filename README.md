@@ -15,7 +15,13 @@ https://facebook.github.io/watchman/docs/install.html
 
 STRONGLY RECOMMEND for better developer experience.
 
-### 3. Set `GITHUB_API_TOKEN`
+### 3. Generate `GITHUB_API_TOKEN`
+
+Access https://github.com/settings/tokens/new
+
+Check "repo" then "Generate token" 
+
+### 4. Set `GITHUB_API_TOKEN` to env variable
 
 ```shell
 cp .env.development.local.sample .env.development.local

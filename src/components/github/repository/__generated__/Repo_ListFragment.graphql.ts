@@ -9,6 +9,8 @@ export type Repo_ListFragment = {
     readonly repositories: {
         readonly edges: ReadonlyArray<{
             readonly node: {
+                readonly id: string;
+                readonly name: string;
                 readonly " $fragmentRefs": FragmentRefs<"Repo_CardFragment">;
             } | null;
         } | null> | null;
@@ -30,7 +32,14 @@ export type Repo_ListFragment$key = {
 const node: ReaderFragment = (function(){
 var v0 = [
   "repositories"
-];
+],
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
 return {
   "argumentDefinitions": [
     {
@@ -39,7 +48,7 @@ return {
       "name": "a"
     },
     {
-      "defaultValue": 5,
+      "defaultValue": 10,
       "kind": "LocalArgument",
       "name": "f"
     }
@@ -105,6 +114,14 @@ return {
               "name": "node",
               "plural": false,
               "selections": [
+                (v1/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "name",
+                  "storageKey": null
+                },
                 {
                   "alias": null,
                   "args": null,
@@ -158,17 +175,11 @@ return {
       ],
       "storageKey": "__Repo_ListPaginationQuery_repositories_connection(orderBy:{\"direction\":\"DESC\",\"field\":\"CREATED_AT\"})"
     },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "id",
-      "storageKey": null
-    }
+    (v1/*: any*/)
   ],
   "type": "User",
   "abstractKey": null
 };
 })();
-(node as any).hash = 'e708782fd2edea3393546e99eaf2d93a';
+(node as any).hash = '45201e6167aaf2b644061e127cd22bff';
 export default node;

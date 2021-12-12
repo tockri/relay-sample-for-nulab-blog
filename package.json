@@ -24,6 +24,9 @@
     "relay-runtime": "^12.0.0"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.16.0",
+    "@babel/plugin-proposal-private-methods": "^7.16.0",
+    "@babel/plugin-proposal-private-property-in-object": "^7.16.0",
     "@types/node": "16.11.11",
     "@types/react": "17.0.37",
     "@types/react-relay": "^11.0.2",

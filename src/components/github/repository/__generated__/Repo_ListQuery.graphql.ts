@@ -32,11 +32,12 @@ fragment Repo_CardFragment on Repository {
 }
 
 fragment Repo_ListFragment on User {
-  repositories(first: 5, orderBy: {field: CREATED_AT, direction: DESC}) {
+  repositories(first: 10, orderBy: {field: CREATED_AT, direction: DESC}) {
     edges {
       node {
-        ...Repo_CardFragment
         id
+        name
+        ...Repo_CardFragment
         __typename
       }
       cursor
@@ -55,7 +56,7 @@ var v0 = [
   {
     "kind": "Literal",
     "name": "first",
-    "value": 5
+    "value": 10
   },
   {
     "kind": "Literal",
@@ -192,7 +193,7 @@ return {
                 "storageKey": null
               }
             ],
-            "storageKey": "repositories(first:5,orderBy:{\"direction\":\"DESC\",\"field\":\"CREATED_AT\"})"
+            "storageKey": "repositories(first:10,orderBy:{\"direction\":\"DESC\",\"field\":\"CREATED_AT\"})"
           },
           {
             "alias": null,
@@ -212,12 +213,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d08d818c521c9480e3226e00aaf6f644",
+    "cacheID": "cbee66d2632074c90a9fda4c37a4a6d3",
     "id": null,
     "metadata": {},
     "name": "Repo_ListQuery",
     "operationKind": "query",
-    "text": "query Repo_ListQuery {\n  viewer {\n    ...Repo_ListFragment\n    id\n  }\n}\n\nfragment Repo_CardFragment on Repository {\n  id\n  name\n}\n\nfragment Repo_ListFragment on User {\n  repositories(first: 5, orderBy: {field: CREATED_AT, direction: DESC}) {\n    edges {\n      node {\n        ...Repo_CardFragment\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n"
+    "text": "query Repo_ListQuery {\n  viewer {\n    ...Repo_ListFragment\n    id\n  }\n}\n\nfragment Repo_CardFragment on Repository {\n  id\n  name\n}\n\nfragment Repo_ListFragment on User {\n  repositories(first: 10, orderBy: {field: CREATED_AT, direction: DESC}) {\n    edges {\n      node {\n        id\n        name\n        ...Repo_CardFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n"
   }
 };
 })();

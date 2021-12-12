@@ -9,7 +9,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Relay sample</title>
       </Head>
-      <h1>Repositories</h1>
+      <h1>Add Issue</h1>
       <RepositorySelector />
     </>
   )

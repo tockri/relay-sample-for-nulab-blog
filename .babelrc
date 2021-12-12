@@ -1,6 +1,28 @@
 {
   "presets": ["next/babel"],
   "plugins": [
-    "relay"
+    "relay",
+    "inline-react-svg",
+    ["@babel/plugin-proposal-private-property-in-object", { "loose": true }],
+    ["@babel/plugin-proposal-class-properties", { "loose": true }],
+    ["@babel/plugin-proposal-private-methods", { "loose": true }],
+    [
+      "import",
+      {
+        "libraryName": "@mui/material",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false
+      },
+      "import-mui-core"
+    ],
+    [
+      "import",
+      {
+        "libraryName": "@mui/icons-material",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false
+      },
+      "import-mui-icons"
+    ]
   ]
 }

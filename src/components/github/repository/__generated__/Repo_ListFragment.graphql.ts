@@ -11,11 +11,11 @@ export type Repo_ListFragment = {
             readonly node: {
                 readonly id: string;
                 readonly name: string;
-                readonly " $fragmentRefs": FragmentRefs<"Repo_CardFragment">;
             } | null;
         } | null> | null;
         readonly pageInfo: {
             readonly hasNextPage: boolean;
+            readonly endCursor: string | null;
         };
     };
     readonly id: string;
@@ -128,11 +128,6 @@ return {
                   "kind": "ScalarField",
                   "name": "__typename",
                   "storageKey": null
-                },
-                {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "Repo_CardFragment"
                 }
               ],
               "storageKey": null
@@ -181,5 +176,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '45201e6167aaf2b644061e127cd22bff';
+(node as any).hash = '357e4d6dea0a43c9f47d6a50c15f729d';
 export default node;

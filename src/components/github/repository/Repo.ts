@@ -2,13 +2,6 @@
 
 import { graphql } from 'react-relay'
 
-export const repoCardFragment = graphql`
-  fragment Repo_CardFragment on Repository {
-    id
-    name
-  }
-`
-
 export const repoListFragment = graphql`
   fragment Repo_ListFragment on User
   @argumentDefinitions(
@@ -25,11 +18,11 @@ export const repoListFragment = graphql`
         node {
           id
           name
-          ...Repo_CardFragment
         }
       }
       pageInfo {
         hasNextPage
+        endCursor
       }
     }
   }

@@ -26,18 +26,12 @@ query Repo_ListQuery {
   }
 }
 
-fragment Repo_CardFragment on Repository {
-  id
-  name
-}
-
 fragment Repo_ListFragment on User {
   repositories(first: 10, orderBy: {field: CREATED_AT, direction: DESC}) {
     edges {
       node {
         id
         name
-        ...Repo_CardFragment
         __typename
       }
       cursor
@@ -213,12 +207,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "cbee66d2632074c90a9fda4c37a4a6d3",
+    "cacheID": "308f2292d99730f0a357bf8b9b2b88c9",
     "id": null,
     "metadata": {},
     "name": "Repo_ListQuery",
     "operationKind": "query",
-    "text": "query Repo_ListQuery {\n  viewer {\n    ...Repo_ListFragment\n    id\n  }\n}\n\nfragment Repo_CardFragment on Repository {\n  id\n  name\n}\n\nfragment Repo_ListFragment on User {\n  repositories(first: 10, orderBy: {field: CREATED_AT, direction: DESC}) {\n    edges {\n      node {\n        id\n        name\n        ...Repo_CardFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n"
+    "text": "query Repo_ListQuery {\n  viewer {\n    ...Repo_ListFragment\n    id\n  }\n}\n\nfragment Repo_ListFragment on User {\n  repositories(first: 10, orderBy: {field: CREATED_AT, direction: DESC}) {\n    edges {\n      node {\n        id\n        name\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n"
   }
 };
 })();

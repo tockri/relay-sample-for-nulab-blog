@@ -35,18 +35,12 @@ query Repo_ListPaginationQuery(
   }
 }
 
-fragment Repo_CardFragment on Repository {
-  id
-  name
-}
-
 fragment Repo_ListFragment_P3xnp on User {
   repositories(first: $f, after: $a, orderBy: {field: CREATED_AT, direction: DESC}) {
     edges {
       node {
         id
         name
-        ...Repo_CardFragment
         __typename
       }
       cursor
@@ -271,14 +265,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "94f933ab8334937db3c4b53ee468b180",
+    "cacheID": "7e516918f8d9add6b0befdda07e28738",
     "id": null,
     "metadata": {},
     "name": "Repo_ListPaginationQuery",
     "operationKind": "query",
-    "text": "query Repo_ListPaginationQuery(\n  $a: String\n  $f: Int = 10\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...Repo_ListFragment_P3xnp\n    id\n  }\n}\n\nfragment Repo_CardFragment on Repository {\n  id\n  name\n}\n\nfragment Repo_ListFragment_P3xnp on User {\n  repositories(first: $f, after: $a, orderBy: {field: CREATED_AT, direction: DESC}) {\n    edges {\n      node {\n        id\n        name\n        ...Repo_CardFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n"
+    "text": "query Repo_ListPaginationQuery(\n  $a: String\n  $f: Int = 10\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...Repo_ListFragment_P3xnp\n    id\n  }\n}\n\nfragment Repo_ListFragment_P3xnp on User {\n  repositories(first: $f, after: $a, orderBy: {field: CREATED_AT, direction: DESC}) {\n    edges {\n      node {\n        id\n        name\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n"
   }
 };
 })();
-(node as any).hash = '45201e6167aaf2b644061e127cd22bff';
+(node as any).hash = '357e4d6dea0a43c9f47d6a50c15f729d';
 export default node;

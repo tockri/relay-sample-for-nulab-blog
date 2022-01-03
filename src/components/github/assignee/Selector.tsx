@@ -2,17 +2,17 @@ import { Autocomplete, SxProps, TextField } from '@mui/material'
 import React from 'react'
 import { PreloadedQuery } from 'react-relay'
 import { Loading } from '../../common/Loading'
-import { useLabelListLoader, useLabels } from './Label'
-import { LabelListQuery } from './__generated__/LabelListQuery.graphql'
+import { useUserList, useUserListPreload } from './User'
+import { UserListQuery } from './__generated__/UserListQuery.graphql'
 
-export type LabelSelectorProps = {
+export type AssigneeSelectorProps = {
   repositoryName: string | null
   onChange: (id: string, label: string) => void
 }
 
-export const LabelSelector: React.FC<LabelSelectorProps> = (props) => {
+export const AssigneeSelector: React.FC<AssigneeSelectorProps> = (props) => {
   const { repositoryName } = props
-  const preloaded = useLabelListLoader(repositoryName)
+  const preloaded = useUserListPreload(repositoryName)
   return preloaded ? (
     <React.Suspense fallback={<Loading />}>
       <Inner preloaded={preloaded} {...props} />
@@ -31,25 +31,25 @@ const EmptyFrame: React.FC = () => {
     <TextField
       disabled={true}
       size="small"
-      label="Labels"
+      label="Assignee"
       sx={textFieldProps}
     />
   )
 }
 
 type InnerProps = {
-  preloaded: PreloadedQuery<LabelListQuery>
-} & LabelSelectorProps
+  preloaded: PreloadedQuery<UserListQuery>
+} & AssigneeSelectorProps
 
 const Inner: React.FC<InnerProps> = (props) => {
   const { preloaded, onChange } = props
-  const labels = useLabels(preloaded)
+  const labels = useUserList(preloaded)
   return (
     <Autocomplete
       sx={{ width: 300 }}
       size="small"
       renderInput={(params) => (
-        <TextField {...params} label="Labels" sx={textFieldProps} />
+        <TextField {...params} label="Assignee" sx={textFieldProps} />
       )}
       options={labels.map((l) => ({ id: l.id, label: l.name }))}
       onChange={(ev, value) => {

@@ -34,6 +34,7 @@ const Inner: React.FC<InnerProps> = (props) => {
       renderInput={(params) => <TextField {...params} label="Repository" />}
       options={items}
       onOpen={startLoadMore}
+      isOptionEqualToValue={(option, value) => option.id === value.id}
       onChange={(ev, value) => {
         if (value && value.id) {
           onChange(value.id, value.label || '')

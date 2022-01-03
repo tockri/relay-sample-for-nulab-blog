@@ -42,7 +42,7 @@ export const useLabelListLoader = (
       load({ repoName: repoName })
     }
   }, [repoName])
-  return preload || null
+  return (repoName && preload) || null
 }
 
 export const useLabels = (

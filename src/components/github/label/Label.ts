@@ -2,38 +2,37 @@ import { useEffect } from 'react'
 import {
   graphql,
   PreloadedQuery,
+  useFragment,
   usePreloadedQuery,
   useQueryLoader,
 } from 'react-relay'
+import { LabelListFragment$key } from './__generated__/LabelListFragment.graphql'
 import { LabelListQuery } from './__generated__/LabelListQuery.graphql'
+
+const labelListFragment = graphql`
+  fragment LabelListFragment on LabelConnection {
+    nodes {
+      id
+      name
+      color
+      description
+    }
+  }
+`
 
 const labelListQuery = graphql`
   query LabelListQuery($repoName: String!) {
     viewer {
       repository(name: $repoName) {
         labels(first: 100) {
-          edges {
-            node {
-              id
-              name
-              color
-              description
-            }
-          }
+          ...LabelListFragment
         }
       }
     }
   }
 `
 
-type IssueLabel = {
-  readonly id: string
-  readonly name: string
-  readonly color: string
-  readonly description: string
-}
-
-export const useLabelListLoader = (
+export const useLabelListPreload = (
   repoName: string | null
 ): PreloadedQuery<LabelListQuery> | null => {
   const [preload, load] = useQueryLoader<LabelListQuery>(labelListQuery)
@@ -45,16 +44,21 @@ export const useLabelListLoader = (
   return (repoName && preload) || null
 }
 
+export type LabelListItem = {
+  readonly id: string
+  readonly name: string
+  readonly color: string
+  readonly description: string | null
+}
+
 export const useLabels = (
   preloaded: PreloadedQuery<LabelListQuery>
-): ReadonlyArray<IssueLabel> => {
+): ReadonlyArray<LabelListItem> => {
   const result = usePreloadedQuery<LabelListQuery>(labelListQuery, preloaded)
-  return (
-    result.viewer?.repository?.labels?.edges?.map((edge) => ({
-      id: edge?.node?.id || '',
-      name: edge?.node?.name || '',
-      color: edge?.node?.color || '',
-      description: edge?.node?.description || '',
-    })) ?? []
+  const labels = useFragment<LabelListFragment$key>(
+    labelListFragment,
+    result.viewer?.repository?.labels ?? null
   )
+
+  return labels?.nodes?.flatMap((node) => (node && [node]) || []) ?? []
 }

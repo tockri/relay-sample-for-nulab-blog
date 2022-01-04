@@ -12,7 +12,7 @@ export type Repo_ListPaginationQueryVariables = {
 };
 export type Repo_ListPaginationQueryResponse = {
     readonly node: {
-        readonly " $fragmentRefs": FragmentRefs<"Repo_ListFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"RepoListFragment">;
     } | null;
 };
 export type Repo_ListPaginationQuery = {
@@ -30,12 +30,12 @@ query Repo_ListPaginationQuery(
 ) {
   node(id: $id) {
     __typename
-    ...Repo_ListFragment_P3xnp
+    ...RepoListFragment_P3xnp
     id
   }
 }
 
-fragment Repo_ListFragment_P3xnp on User {
+fragment RepoListFragment_P3xnp on User {
   repositories(first: $f, after: $a, orderBy: {field: CREATED_AT, direction: DESC}) {
     edges {
       node {
@@ -142,7 +142,7 @@ return {
               }
             ],
             "kind": "FragmentSpread",
-            "name": "Repo_ListFragment"
+            "name": "RepoListFragment"
           }
         ],
         "storageKey": null
@@ -265,14 +265,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7e516918f8d9add6b0befdda07e28738",
+    "cacheID": "e28038df9778b2e88ff68cb3f1a6578a",
     "id": null,
     "metadata": {},
     "name": "Repo_ListPaginationQuery",
     "operationKind": "query",
-    "text": "query Repo_ListPaginationQuery(\n  $a: String\n  $f: Int = 10\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...Repo_ListFragment_P3xnp\n    id\n  }\n}\n\nfragment Repo_ListFragment_P3xnp on User {\n  repositories(first: $f, after: $a, orderBy: {field: CREATED_AT, direction: DESC}) {\n    edges {\n      node {\n        id\n        name\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n"
+    "text": "query Repo_ListPaginationQuery(\n  $a: String\n  $f: Int = 10\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...RepoListFragment_P3xnp\n    id\n  }\n}\n\nfragment RepoListFragment_P3xnp on User {\n  repositories(first: $f, after: $a, orderBy: {field: CREATED_AT, direction: DESC}) {\n    edges {\n      node {\n        id\n        name\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n"
   }
 };
 })();
-(node as any).hash = '357e4d6dea0a43c9f47d6a50c15f729d';
+(node as any).hash = 'e9c38fe8a9a3e4e076a96bfcf688e4ca';
 export default node;

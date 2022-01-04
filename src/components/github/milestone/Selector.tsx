@@ -3,23 +3,23 @@ import { TextFieldProps } from '@mui/material/TextField/TextField'
 import React from 'react'
 import { PreloadedQuery } from 'react-relay'
 import { Loading } from '../../common/Loading'
-import { useUserList, useUserListPreload } from './User'
-import { UserListQuery } from './__generated__/UserListQuery.graphql'
+import { useMilestoneList, useMilestoneListPreload } from './Milestone'
+import { MilestoneListQuery } from './__generated__/MilestoneListQuery.graphql'
 
-export type Assignee = {
+export type Milestone = {
   id: string
   label: string
 }
 
-export type AssigneeSelectorProps = {
+export type MilestoneSelectorProps = {
   repositoryName: string | null
-  onChange: (value: Assignee | null) => void
-  value: Assignee | null
+  onChange: (value: Milestone | null) => void
+  value: Milestone | null
 }
 
-export const AssigneeSelector: React.FC<AssigneeSelectorProps> = (props) => {
+export const MilestoneSelector: React.FC<MilestoneSelectorProps> = (props) => {
   const { repositoryName } = props
-  const preloaded = useUserListPreload(repositoryName)
+  const preloaded = useMilestoneListPreload(repositoryName)
   return preloaded ? (
     <React.Suspense fallback={<Loading />}>
       <Inner preloaded={preloaded} {...props} />
@@ -31,7 +31,7 @@ export const AssigneeSelector: React.FC<AssigneeSelectorProps> = (props) => {
 
 const textFieldProps: TextFieldProps = {
   size: 'small',
-  label: 'Assignee',
+  label: 'Milestone',
   fullWidth: true,
   variant: 'outlined',
 }
@@ -41,21 +41,18 @@ const EmptyFrame: React.FC = () => {
 }
 
 type InnerProps = {
-  preloaded: PreloadedQuery<UserListQuery>
-} & AssigneeSelectorProps
+  preloaded: PreloadedQuery<MilestoneListQuery>
+} & MilestoneSelectorProps
 
 const Inner: React.FC<InnerProps> = (props) => {
   const { preloaded, onChange, value } = props
-  const labels = useUserList(preloaded)
+  const milestones = useMilestoneList(preloaded)
   return (
     <Autocomplete
       size="small"
       value={value}
       renderInput={(params) => <TextField {...textFieldProps} {...params} />}
-      options={labels.map((l) => ({
-        id: l.id,
-        label: `${l.login} (${l.name || ''})`,
-      }))}
+      options={milestones.map((l) => ({ id: l.id, label: l.title }))}
       onChange={(ev, value) => {
         if (value && value.id) {
           onChange(value)

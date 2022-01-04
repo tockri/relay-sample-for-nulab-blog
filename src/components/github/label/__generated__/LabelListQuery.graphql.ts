@@ -4,6 +4,7 @@
 
 import { ConcreteRequest } from "relay-runtime";
 
+import { FragmentRefs } from "relay-runtime";
 export type LabelListQueryVariables = {
     repoName: string;
 };
@@ -11,14 +12,7 @@ export type LabelListQueryResponse = {
     readonly viewer: {
         readonly repository: {
             readonly labels: {
-                readonly edges: ReadonlyArray<{
-                    readonly node: {
-                        readonly id: string;
-                        readonly name: string;
-                        readonly color: string;
-                        readonly description: string | null;
-                    } | null;
-                } | null> | null;
+                readonly " $fragmentRefs": FragmentRefs<"LabelListFragment">;
             } | null;
         } | null;
     };
@@ -37,18 +31,20 @@ query LabelListQuery(
   viewer {
     repository(name: $repoName) {
       labels(first: 100) {
-        edges {
-          node {
-            id
-            name
-            color
-            description
-          }
-        }
+        ...LabelListFragment
       }
       id
     }
     id
+  }
+}
+
+fragment LabelListFragment on LabelConnection {
+  nodes {
+    id
+    name
+    color
+    description
   }
 }
 */
@@ -68,73 +64,19 @@ v1 = [
     "variableName": "repoName"
   }
 ],
-v2 = {
+v2 = [
+  {
+    "kind": "Literal",
+    "name": "first",
+    "value": 100
+  }
+],
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": [
-    {
-      "kind": "Literal",
-      "name": "first",
-      "value": 100
-    }
-  ],
-  "concreteType": "LabelConnection",
-  "kind": "LinkedField",
-  "name": "labels",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "LabelEdge",
-      "kind": "LinkedField",
-      "name": "edges",
-      "plural": true,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "Label",
-          "kind": "LinkedField",
-          "name": "node",
-          "plural": false,
-          "selections": [
-            (v2/*: any*/),
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "name",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "color",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "description",
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    }
-  ],
-  "storageKey": "labels(first:100)"
 };
 return {
   "fragment": {
@@ -159,7 +101,22 @@ return {
             "name": "repository",
             "plural": false,
             "selections": [
-              (v3/*: any*/)
+              {
+                "alias": null,
+                "args": (v2/*: any*/),
+                "concreteType": "LabelConnection",
+                "kind": "LinkedField",
+                "name": "labels",
+                "plural": false,
+                "selections": [
+                  {
+                    "args": null,
+                    "kind": "FragmentSpread",
+                    "name": "LabelListFragment"
+                  }
+                ],
+                "storageKey": "labels(first:100)"
+              }
             ],
             "storageKey": null
           }
@@ -192,26 +149,69 @@ return {
             "name": "repository",
             "plural": false,
             "selections": [
-              (v3/*: any*/),
-              (v2/*: any*/)
+              {
+                "alias": null,
+                "args": (v2/*: any*/),
+                "concreteType": "LabelConnection",
+                "kind": "LinkedField",
+                "name": "labels",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Label",
+                    "kind": "LinkedField",
+                    "name": "nodes",
+                    "plural": true,
+                    "selections": [
+                      (v3/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "name",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "color",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "description",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": "labels(first:100)"
+              },
+              (v3/*: any*/)
             ],
             "storageKey": null
           },
-          (v2/*: any*/)
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "8c65e14738dbd83f5e29f3accabc88ab",
+    "cacheID": "3ccca44e776173a5cb7a9806efa8abbe",
     "id": null,
     "metadata": {},
     "name": "LabelListQuery",
     "operationKind": "query",
-    "text": "query LabelListQuery(\n  $repoName: String!\n) {\n  viewer {\n    repository(name: $repoName) {\n      labels(first: 100) {\n        edges {\n          node {\n            id\n            name\n            color\n            description\n          }\n        }\n      }\n      id\n    }\n    id\n  }\n}\n"
+    "text": "query LabelListQuery(\n  $repoName: String!\n) {\n  viewer {\n    repository(name: $repoName) {\n      labels(first: 100) {\n        ...LabelListFragment\n      }\n      id\n    }\n    id\n  }\n}\n\nfragment LabelListFragment on LabelConnection {\n  nodes {\n    id\n    name\n    color\n    description\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'a509c687054067029a470e21b6645e46';
+(node as any).hash = '4a046dfe49672031624768b474b82794';
 export default node;

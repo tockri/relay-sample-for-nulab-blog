@@ -5,7 +5,7 @@
 import { ReaderFragment } from "relay-runtime";
 import Repo_ListPaginationQuery from "./Repo_ListPaginationQuery.graphql";
 import { FragmentRefs } from "relay-runtime";
-export type Repo_ListFragment = {
+export type RepoListFragment = {
     readonly repositories: {
         readonly edges: ReadonlyArray<{
             readonly node: {
@@ -19,12 +19,12 @@ export type Repo_ListFragment = {
         };
     };
     readonly id: string;
-    readonly " $refType": "Repo_ListFragment";
+    readonly " $refType": "RepoListFragment";
 };
-export type Repo_ListFragment$data = Repo_ListFragment;
-export type Repo_ListFragment$key = {
-    readonly " $data"?: Repo_ListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"Repo_ListFragment">;
+export type RepoListFragment$data = RepoListFragment;
+export type RepoListFragment$key = {
+    readonly " $data"?: RepoListFragment$data | undefined;
+    readonly " $fragmentRefs": FragmentRefs<"RepoListFragment">;
 };
 
 
@@ -79,7 +79,7 @@ return {
       "identifierField": "id"
     }
   },
-  "name": "Repo_ListFragment",
+  "name": "RepoListFragment",
   "selections": [
     {
       "alias": "repositories",
@@ -176,5 +176,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '357e4d6dea0a43c9f47d6a50c15f729d';
+(node as any).hash = 'e9c38fe8a9a3e4e076a96bfcf688e4ca';
 export default node;

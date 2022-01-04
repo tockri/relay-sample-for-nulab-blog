@@ -3,8 +3,8 @@ import React from 'react'
 
 export const Loading: React.FC = () => {
   return (
-    <Box sx={{ marginX: 'auto' }}>
-      <CircularProgress />
+    <Box sx={{ textAlign: 'center' }}>
+      <CircularProgress size={32} />
     </Box>
   )
 }

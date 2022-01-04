@@ -8,11 +8,11 @@ import {
   usePreloadedQuery,
   useQueryLoader,
 } from 'react-relay'
-import { Repo_ListFragment$key } from './__generated__/Repo_ListFragment.graphql'
-import { Repo_ListQuery } from './__generated__/Repo_ListQuery.graphql'
+import { RepoListFragment$key } from './__generated__/RepoListFragment.graphql'
+import { RepoListQuery } from './__generated__/RepoListQuery.graphql'
 
 const repoListFragment = graphql`
-  fragment Repo_ListFragment on User
+  fragment RepoListFragment on User
   @argumentDefinitions(
     f: { type: "Int", defaultValue: 10 }
     a: { type: "String" }
@@ -38,17 +38,17 @@ const repoListFragment = graphql`
 `
 
 const repoListQuery = graphql`
-  query Repo_ListQuery {
+  query RepoListQuery {
     viewer {
-      ...Repo_ListFragment
+      ...RepoListFragment
     }
   }
 `
 
-export const useRepositoryListLoader =
-  (): PreloadedQuery<Repo_ListQuery> | null => {
+export const useRepositoryListPreload =
+  (): PreloadedQuery<RepoListQuery> | null => {
     const [preloaded, loadRepository] =
-      useQueryLoader<Repo_ListQuery>(repoListQuery)
+      useQueryLoader<RepoListQuery>(repoListQuery)
     useEffect(() => {
       loadRepository({})
     }, [])
@@ -61,12 +61,12 @@ export type RepositoryItemsType = {
 }
 
 export const useRepositoryItems = (
-  preloaded: PreloadedQuery<Repo_ListQuery>
+  preloaded: PreloadedQuery<RepoListQuery>
 ): RepositoryItemsType => {
-  const result = usePreloadedQuery<Repo_ListQuery>(repoListQuery, preloaded)
+  const result = usePreloadedQuery<RepoListQuery>(repoListQuery, preloaded)
   const { data, loadNext } = usePaginationFragment<
-    Repo_ListQuery,
-    Repo_ListFragment$key
+    RepoListQuery,
+    RepoListFragment$key
   >(repoListFragment, result.viewer)
   const pageInfo = data.repositories.pageInfo
   const [loadMore, setLoadMore] = useState(false)

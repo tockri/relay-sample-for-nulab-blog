@@ -5,33 +5,33 @@
 import { ConcreteRequest } from "relay-runtime";
 
 import { FragmentRefs } from "relay-runtime";
-export type UserListQueryVariables = {
+export type MilestoneListQueryVariables = {
     repoName: string;
 };
-export type UserListQueryResponse = {
+export type MilestoneListQueryResponse = {
     readonly viewer: {
         readonly repository: {
-            readonly assignableUsers: {
-                readonly " $fragmentRefs": FragmentRefs<"UserListFragment">;
-            };
+            readonly milestones: {
+                readonly " $fragmentRefs": FragmentRefs<"MilestoneListFragment">;
+            } | null;
         } | null;
     };
 };
-export type UserListQuery = {
-    readonly response: UserListQueryResponse;
-    readonly variables: UserListQueryVariables;
+export type MilestoneListQuery = {
+    readonly response: MilestoneListQueryResponse;
+    readonly variables: MilestoneListQueryVariables;
 };
 
 
 
 /*
-query UserListQuery(
+query MilestoneListQuery(
   $repoName: String!
 ) {
   viewer {
     repository(name: $repoName) {
-      assignableUsers(first: 100) {
-        ...UserListFragment
+      milestones(first: 100) {
+        ...MilestoneListFragment
       }
       id
     }
@@ -39,12 +39,10 @@ query UserListQuery(
   }
 }
 
-fragment UserListFragment on UserConnection {
+fragment MilestoneListFragment on MilestoneConnection {
   nodes {
     id
-    name
-    login
-    avatarUrl
+    title
   }
 }
 */
@@ -83,7 +81,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "UserListQuery",
+    "name": "MilestoneListQuery",
     "selections": [
       {
         "alias": null,
@@ -104,18 +102,18 @@ return {
               {
                 "alias": null,
                 "args": (v2/*: any*/),
-                "concreteType": "UserConnection",
+                "concreteType": "MilestoneConnection",
                 "kind": "LinkedField",
-                "name": "assignableUsers",
+                "name": "milestones",
                 "plural": false,
                 "selections": [
                   {
                     "args": null,
                     "kind": "FragmentSpread",
-                    "name": "UserListFragment"
+                    "name": "MilestoneListFragment"
                   }
                 ],
-                "storageKey": "assignableUsers(first:100)"
+                "storageKey": "milestones(first:100)"
               }
             ],
             "storageKey": null
@@ -131,7 +129,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "UserListQuery",
+    "name": "MilestoneListQuery",
     "selections": [
       {
         "alias": null,
@@ -152,15 +150,15 @@ return {
               {
                 "alias": null,
                 "args": (v2/*: any*/),
-                "concreteType": "UserConnection",
+                "concreteType": "MilestoneConnection",
                 "kind": "LinkedField",
-                "name": "assignableUsers",
+                "name": "milestones",
                 "plural": false,
                 "selections": [
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "User",
+                    "concreteType": "Milestone",
                     "kind": "LinkedField",
                     "name": "nodes",
                     "plural": true,
@@ -170,28 +168,14 @@ return {
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
-                        "name": "name",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "login",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "avatarUrl",
+                        "name": "title",
                         "storageKey": null
                       }
                     ],
                     "storageKey": null
                   }
                 ],
-                "storageKey": "assignableUsers(first:100)"
+                "storageKey": "milestones(first:100)"
               },
               (v3/*: any*/)
             ],
@@ -204,14 +188,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "8f460a2e0d2c56e84c275f5f86321ce2",
+    "cacheID": "abc4b60cc5e41284953ea4be3ed7f99c",
     "id": null,
     "metadata": {},
-    "name": "UserListQuery",
+    "name": "MilestoneListQuery",
     "operationKind": "query",
-    "text": "query UserListQuery(\n  $repoName: String!\n) {\n  viewer {\n    repository(name: $repoName) {\n      assignableUsers(first: 100) {\n        ...UserListFragment\n      }\n      id\n    }\n    id\n  }\n}\n\nfragment UserListFragment on UserConnection {\n  nodes {\n    id\n    name\n    login\n    avatarUrl\n  }\n}\n"
+    "text": "query MilestoneListQuery(\n  $repoName: String!\n) {\n  viewer {\n    repository(name: $repoName) {\n      milestones(first: 100) {\n        ...MilestoneListFragment\n      }\n      id\n    }\n    id\n  }\n}\n\nfragment MilestoneListFragment on MilestoneConnection {\n  nodes {\n    id\n    title\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'bffb8c7eedd52541a373d7dc1369574f';
+(node as any).hash = '8298081b593cb226251f5651d0f0a091';
 export default node;

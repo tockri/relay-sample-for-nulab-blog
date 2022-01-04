@@ -1,3 +1,4 @@
+import { Container } from '@mui/material'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import React from 'react'
@@ -10,7 +11,9 @@ const Home: NextPage = () => {
         <title>Relay sample</title>
       </Head>
       <h1>Add Issue</h1>
-      <IssueAddingForm />
+      <Container>
+        <IssueAddingForm />
+      </Container>
     </>
   )
 }

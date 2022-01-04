@@ -1,18 +1,25 @@
-import { Autocomplete, SxProps, TextField } from '@mui/material'
+import { Autocomplete, TextField } from '@mui/material'
+import { TextFieldProps } from '@mui/material/TextField/TextField'
 import React from 'react'
 import { PreloadedQuery } from 'react-relay'
 import { Loading } from '../../common/Loading'
-import { useLabelListLoader, useLabels } from './Label'
+import { useLabelListPreload, useLabels } from './Label'
 import { LabelListQuery } from './__generated__/LabelListQuery.graphql'
+
+export type Label = {
+  id: string
+  label: string
+}
 
 export type LabelSelectorProps = {
   repositoryName: string | null
-  onChange: (id: string, label: string) => void
+  onChange: (value: Label | null) => void
+  value: Label | null
 }
 
 export const LabelSelector: React.FC<LabelSelectorProps> = (props) => {
   const { repositoryName } = props
-  const preloaded = useLabelListLoader(repositoryName)
+  const preloaded = useLabelListPreload(repositoryName)
   return preloaded ? (
     <React.Suspense fallback={<Loading />}>
       <Inner preloaded={preloaded} {...props} />
@@ -22,19 +29,15 @@ export const LabelSelector: React.FC<LabelSelectorProps> = (props) => {
   )
 }
 
-const textFieldProps: SxProps = {
-  width: 300,
+const textFieldProps: TextFieldProps = {
+  size: 'small',
+  label: 'Label',
+  fullWidth: true,
+  variant: 'outlined',
 }
 
 const EmptyFrame: React.FC = () => {
-  return (
-    <TextField
-      disabled={true}
-      size="small"
-      label="Labels"
-      sx={textFieldProps}
-    />
-  )
+  return <TextField disabled={true} {...textFieldProps} />
 }
 
 type InnerProps = {
@@ -42,21 +45,19 @@ type InnerProps = {
 } & LabelSelectorProps
 
 const Inner: React.FC<InnerProps> = (props) => {
-  const { preloaded, onChange } = props
+  const { preloaded, onChange, value } = props
   const labels = useLabels(preloaded)
   return (
     <Autocomplete
-      sx={{ width: 300 }}
       size="small"
-      renderInput={(params) => (
-        <TextField {...params} label="Labels" sx={textFieldProps} />
-      )}
+      value={value}
+      renderInput={(params) => <TextField {...textFieldProps} {...params} />}
       options={labels.map((l) => ({ id: l.id, label: l.name }))}
       onChange={(ev, value) => {
         if (value && value.id) {
-          onChange(value.id, value.label || '')
+          onChange(value)
         } else {
-          onChange('', '')
+          onChange(null)
         }
       }}
     />
